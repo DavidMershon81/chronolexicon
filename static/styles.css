@@ -1,0 +1,18 @@
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: gray;
+    color: lightgray;
+}
+
+header {
+    background-color: black;
+}
+
+footer {
+    background-color: black;
+    height: 100px;
+    padding: 30px;
+}

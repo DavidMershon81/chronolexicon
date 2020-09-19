@@ -27,8 +27,9 @@ Session(app)
 # Routing functions
 @app.route("/")
 def index():
-    """Test route index"""
-    return "Test rendering index page"
+    """route index"""
+    return render_template("index.html", test_var = "Meep")
+
 
 @app.route("/test_login_required")
 @login_required
