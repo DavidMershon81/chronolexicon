@@ -1,7 +1,9 @@
+import os
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from login_required import login_required
+from word_age_info import find_word_age
 
 # Configure application
 app = Flask(__name__)
@@ -23,12 +25,19 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+# Make sure API key is set
+if not os.environ.get("API_KEY"):
+    raise RuntimeError("API_KEY not set")
+
 
 # Routing functions
 @app.route("/")
 def index():
     """route index"""
-    return render_template("index.html", test_var = "Meep")
+
+    test_word = "engineer"
+    processed_json = find_word_age(test_word)        
+    return render_template("index.html", test_word=test_word, processed_json=processed_json)
 
 
 @app.route("/test_login_required")
@@ -42,3 +51,5 @@ def test_login_required():
 def login():
     """Test route login"""
     return "Test rendering login page"
+
+
