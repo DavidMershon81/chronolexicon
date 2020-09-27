@@ -1,15 +1,15 @@
 import re
 from collections import namedtuple
 
+DatedWord = namedtuple("DatedWord", "first_use was_parsed")
 
 def main():
-    #test_parse_formatted_dates()
+    test_parse_formatted_dates()
     #test_tuple()
-    test_named_tuple()
+    #test_named_tuple()
 
 
 def test_named_tuple():
-    DatedWord = namedtuple("DatedWord", "first_use was_parsed")
     test_success_word = DatedWord(first_use="1926", was_parsed=True)
     test_fail_word = DatedWord(first_use=None, was_parsed=False)
     print("test_named_tuple...")
@@ -32,20 +32,30 @@ def test_parse_formatted_dates():
 
     print("printing formatted dates...")
     for fd in formatted_dates:
-        message = f"formatted_date:{fd}"
-
-        four_digit_date = regex_find(fd, r"\d{4}")
-        if four_digit_date: 
-            message += f" | four_digit_date: {four_digit_date}"
-
-        century_date = regex_find(fd, r"(\d{1,2})(th|st|rd|nd)( century)")
-        if century_date: 
-            is_before = regex_find(fd, r"before")
-            message += f" | century_date: {century_date[0]}"
-            if is_before:
-                message += "(before)"
-
+        parsed_date = parse_formatted_date(fd)
+        message = f"formatted_date:{fd} parsed date:{parsed_date}"
         print(message)
+
+
+def parse_formatted_date(formatted_date):
+    #print(f"parsing formatted_date:{formatted_date}...")
+
+    four_digit_date = regex_find(formatted_date, r"\d{4}")
+    century_date_raw = regex_find(formatted_date, r"(\d{1,2})(th|st|rd|nd)( century)")
+
+    if four_digit_date: 
+        #print(f"found four_digit_date: {four_digit_date}")
+        return DatedWord(first_use=int(four_digit_date), was_parsed=True)
+    elif century_date_raw:
+        is_before = regex_find(formatted_date, r"before")
+        first_use_century = int(century_date_raw[0]) - 1
+        if is_before:
+            first_use_century -= 1
+        century_first_use_date = first_use_century * 100 + 50
+        return DatedWord(first_use=century_first_use_date, was_parsed=True)
+        #DatedWord(first_use=None, was_parsed=False)
+    else:
+        return DatedWord(first_use=None, was_parsed=False)
 
 
 def regex_find(formatted_date, search_pattern):
