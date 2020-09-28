@@ -4,23 +4,23 @@ from collections import namedtuple
 DatedWord = namedtuple("DatedWord", "first_use was_parsed")
 
 def main():
-    #test_separate_words()
-    test_parse_formatted_dates()
+    test_separate_words()
+    #test_parse_formatted_dates()
 
 
 def test_separate_words():
-    sample_text = "This is 25 sample pieces of text. Don't knock it!"
+    #This should extract a list of tuples with a length of 2
+    #each tuple will have the word in index 0 and the non-word content(spaces, punctuation) at index 1
+    #if a string of digits (e.g. 25, 327) is present, this will be recognized as a word,
+    #but I can filter this out later, instead of doing a dictionary lookup.
 
-    # this was the algoirthm I used to count words in readabilty, but it doesn't quite work for this application
-    # I think i need to modify it to pull a set of characters that would be in a word, followed by all the characters
-    # that follow that word, which are not word characters
-    #words = regex_find_all_matches(sample_text, r"\S+[\s|.|!|?]")
-
-    # I could also try splitting a string based on spaces and punctuation characters
-    #maybe I can get somewhere with the partition routine too
-    words = sample_text.partition(" ")
+    print("running test_separate_words...")
+    sample_text = "Couldn't a 25 sentence, with Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it!"
+    print(f"sample_text: {sample_text}")
+    print("separated tuples:")
+    words = regex_find_all_matches(sample_text, r"(\w+'*\w*)(\W+)")
     for word in words:
-        print(f"word: [{word}]")
+        print(f"word:[{word[0]}] punctuation:[{word[1]}]")
     
 
 def test_named_tuple():
