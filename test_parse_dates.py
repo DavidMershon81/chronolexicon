@@ -15,10 +15,10 @@ def test_separate_words():
     #but I can filter this out later, instead of doing a dictionary lookup.
 
     print("running test_separate_words...")
-    sample_text = "Couldn't a 25 sentence, with Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it!"
+    sample_text = "Couldn't a 25 sentence, with wan'a'wana'wn and   Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it! Or Mor#(**Too()ps? I thought so!"
     print(f"sample_text: {sample_text}")
     print("separated tuples:")
-    words = regex_find_all_matches(sample_text, r"(\w+'*\w*)(\W+)")
+    words = regex_find_all_matches(sample_text, r"([\w|'*]+)(\W+)")
     for word in words:
         print(f"word:[{word[0]}] punctuation:[{word[1]}]")
     
