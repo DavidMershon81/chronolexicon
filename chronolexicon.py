@@ -3,7 +3,8 @@ from flask import Flask, flash, jsonify, redirect, render_template, request, ses
 from flask_session import Session
 from tempfile import mkdtemp
 from login_required import login_required
-from word_age_info import find_word_age
+from word_age_info import find_word_first_use
+from word_separator import separate_words_and_punctuation
 
 # Configure application
 app = Flask(__name__)
@@ -35,9 +36,13 @@ if not os.environ.get("API_KEY"):
 def index():
     """route index"""
 
-    test_word = "engineer"
-    processed_json = find_word_age(test_word)        
-    return render_template("index.html", test_word=test_word, processed_json=processed_json)
+    #test_word = "engineer"
+
+    sample_text = "Couldn't a 25 sentence, with wan'a'wana'wn and   Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it! Or Mor#(**Too()ps? I thought so!"
+    words_and_punctuation = separate_words_and_punctuation(sample_text)
+    dated_words = [find_word_first_use(wp[0]) for wp in words_and_punctuation]
+
+    return render_template("index.html", dated_words=dated_words)
 
 
 @app.route("/test_login_required")

@@ -8,14 +8,12 @@ Chronolexicon
 {% block main %}
     <section>
         <p>Chronolexicon Index Page</p>
-        <p>Test lookup for the word: <strong>{{ test_word }}</strong></p>
-        <p>Processing JSON...</p>
-
+        
         <table class="table table-striped">            
             <tbody>
-                {% for entry_line in processed_json %}
+                {% for dw in dated_words %}
                 <tr>
-                    <td>{{ entry_line }}</td>
+                    <td>{{ dw }}</td>
                 </tr>
                 {% endfor %}                
             </tbody>
