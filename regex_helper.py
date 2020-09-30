@@ -1,5 +1,6 @@
 import re
 
+
 def regex_find_one_match(text, search_pattern):
     matches = regex_find_all_matches(text, search_pattern)
     if len(matches) > 0:

@@ -1,5 +1,7 @@
 from regex_helper import regex_find_all_matches
+from collections import namedtuple
 
+DatedWordPunctuationPair = namedtuple("WordPunctuationPair", "word punctuation first_use_info")
 
 def separate_words_and_punctuation(text):
     #This should extract a list of tuples with a length of 2

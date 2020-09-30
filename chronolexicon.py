@@ -4,7 +4,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 from login_required import login_required
 from word_age_info import find_word_first_use
-from word_separator import separate_words_and_punctuation
+from word_separator import separate_words_and_punctuation, DatedWordPunctuationPair
 
 # Configure application
 app = Flask(__name__)
@@ -36,13 +36,11 @@ if not os.environ.get("API_KEY"):
 def index():
     """route index"""
 
-    #test_word = "engineer"
-
-    sample_text = "Couldn't a 25 sentence, with wan'a'wana'wn and   Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it! Or Mor#(**Too()ps? I thought so!"
+    #sample_text = "Couldn't a 25 sentence, with wan'a'wana'wn and   Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it! Or Mor#(**Too()ps? I thought so!"
+    sample_text = "Just a few automobiles to visualize."
     words_and_punctuation = separate_words_and_punctuation(sample_text)
-    dated_words = [find_word_first_use(wp[0]) for wp in words_and_punctuation]
-
-    return render_template("index.html", dated_words=dated_words)
+    dated_words = [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_word_first_use(wp[0])) for wp in words_and_punctuation]
+    return render_template("index.html", sample_text=sample_text, dated_words=dated_words)
 
 
 @app.route("/test_login_required")
