@@ -1,10 +1,17 @@
 var loading_text_fader = null;
+var cutoff_date = 1000;
 
 $(document).ready(function() {
     loading_text_fader = PulseFader('.loading_text', 500);
     toggle_loading_animation(false);
 
     $("form").on("submit", send_text_to_be_analyzed);
+
+    $("#cutoff_date_range").on("change", function() {
+        cutoff_date = $("#cutoff_date_range").val();
+        $("#cutoff_date_range_label").html("Cutoff Date: " + cutoff_date);
+        color_all_dated_words();
+    });
 });
 
 function send_text_to_be_analyzed(event) {
@@ -55,7 +62,6 @@ function color_all_dated_words() {
 
 function color_dated_word_by_first_use() {
     var first_use = $(this).attr("first_use");
-    var cutoff_date = 1500;
     var text_color = first_use > cutoff_date ? "violet" : "darkgray";
     $(this).css("color", text_color);
 }
