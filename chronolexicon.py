@@ -56,9 +56,10 @@ def process_ajax_test():
     name = request.form["name"]
 
     if name and email:
-        new_name = f"dumb {name}"
-        new_email = f"dumb_{email}"
-        return jsonify({"name" : new_name, "email" : new_email })
+        test_name = f"dumb {name}"
+        test_email = f"dumb_{email}"
+        processed_html = render_template("processed_ajax_test.html", test_name=test_name, test_email=test_email)
+        return jsonify({"name" : test_name, "email" : test_email, "processed_html" : processed_html })
 
     return jsonify({"error" : "Missing data!"})
 

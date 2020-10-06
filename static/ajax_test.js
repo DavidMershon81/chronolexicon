@@ -13,10 +13,15 @@ $(document).ready(function() {
             if(data.error) {
                 $("#error_alert").text(data.error).show();
                 $("#success_alert").hide();
+
+                $("#test_insert_here").html("Oh Snap, no processed HTML to insert!");
             }
             else {
                 $("#success_alert").text("name:" + data.name + " email:" + data.email).show();
                 $("#error_alert").hide();
+
+                $("#test_insert_here").html(data.processed_html);
+                
             }
         });
 
