@@ -40,6 +40,7 @@ def index():
 
 @app.route("/analyze_text_first_use", methods=["POST"])
 def analyze_text_first_use():
+    """analyze text and return a formatted html file where words are tagged by their first known use"""
     analysis_text = request.form["analysis_text"]
 
     if analysis_text:

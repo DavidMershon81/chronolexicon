@@ -8,5 +8,5 @@ def separate_words_and_punctuation(text):
     #each tuple will have the word in index 0 and the non-word content(spaces, punctuation) at index 1
     #if a string of digits (e.g. 25, 327) is present, this will be recognized as a word,
     #but I can filter this out later, instead of doing a dictionary lookup.
-    return regex_find_all_matches(text, r"([\w|'*]+)(\W+)")
+    return regex_find_all_matches(text, r"([\w|'*]+)(\W*)")
 
