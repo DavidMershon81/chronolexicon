@@ -35,31 +35,18 @@ if not os.environ.get("API_KEY"):
 @app.route("/")
 def index():
     """route index"""
-
-    #sample_text = "Couldn't a 25 sentence, with wan'a'wana'wn and   Rodriguez-Rodriguez weren't it? For 327 dogs... Don't knock it! Or Mor#(**Too()ps? I thought so!"
-    sample_text = "Just a few automobiles to visualize."
-    words_and_punctuation = separate_words_and_punctuation(sample_text)
-    dated_words = [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_word_first_use(wp[0])) for wp in words_and_punctuation]
-    return render_template("index.html", sample_text=sample_text, dated_words=dated_words)
+    return render_template("index.html")
 
 
+@app.route("/analyze_text_first_use", methods=["POST"])
+def analyze_text_first_use():
+    analysis_text = request.form["analysis_text"]
 
-@app.route("/ajax_test")
-def ajax_test():
-    """route ajax test"""
-    return render_template("ajax_test.html")
-
-
-@app.route("/process_ajax_test", methods=["POST"])
-def process_ajax_test():
-    email = request.form["email"]
-    name = request.form["name"]
-
-    if name and email:
-        test_name = f"dumb {name}"
-        test_email = f"dumb_{email}"
-        processed_html = render_template("processed_ajax_test.html", test_name=test_name, test_email=test_email)
-        return jsonify({"name" : test_name, "email" : test_email, "processed_html" : processed_html })
+    if analysis_text:
+        words_and_punctuation = separate_words_and_punctuation(analysis_text)
+        dated_words = [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_word_first_use(wp[0])) for wp in words_and_punctuation]
+        analyzed_text_html = render_template("analyzed_text.html", dated_words=dated_words)
+        return jsonify({"analyzed_text_html" : analyzed_text_html })
 
     return jsonify({"error" : "Missing data!"})
 

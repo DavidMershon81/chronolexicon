@@ -1,0 +1,16 @@
+<h2>Analyzed Text</h2>
+<p>
+    {% for dw in dated_words %}<span class="dated_word" first_use="{{dw.first_use_info.first_use}}">{{dw.word}}</span>{{dw.punctuation}}{% endfor %}
+</p>
+        
+<h2>Debug Info</h2>
+
+<table class="table table-striped">            
+    <tbody>
+        {% for dw in dated_words %}
+        <tr>
+            <td>word[{{dw.word}}] punctuation[{{dw.punctuation}}] first_use_info[{{dw.first_use_info}}]</td>
+        </tr>
+        {% endfor %}                
+    </tbody>
+</table>
