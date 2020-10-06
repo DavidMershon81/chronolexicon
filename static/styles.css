@@ -16,3 +16,7 @@ footer {
     height: 100px;
     padding: 30px;
 }
+
+.alert {
+    display: none;
+}

@@ -43,6 +43,26 @@ def index():
     return render_template("index.html", sample_text=sample_text, dated_words=dated_words)
 
 
+
+@app.route("/ajax_test")
+def ajax_test():
+    """route ajax test"""
+    return render_template("ajax_test.html")
+
+
+@app.route("/process_ajax_test", methods=["POST"])
+def process_ajax_test():
+    email = request.form["email"]
+    name = request.form["name"]
+
+    if name and email:
+        new_name = f"dumb {name}"
+        new_email = f"dumb_{email}"
+        return jsonify({"name" : new_name, "email" : new_email })
+
+    return jsonify({"error" : "Missing data!"})
+
+
 @app.route("/test_login_required")
 @login_required
 def test_login_required():
