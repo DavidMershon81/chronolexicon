@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,23 +11,25 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite3"
 db = SQLAlchemy(app)
 
 
-class User(db.Model):
+class DatedWordRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    location = db.Column(db.String(50))
-    date_created = db.Column(db.DateTime, default=datetime.now)
+    word = db.Column(db.String(50))
+    first_use_date = db.Column(db.SmallInteger)
+    first_use_known = db.Column(db.Boolean)
+    lookup_date = db.Column(db.Date, default=date.today())
     blup = db.Date
 
 
-@app.route("/<name>/<location>")
-def index(name, location):
-    user = User(name=name, location=location)
-    db.session.add(user)
+@app.route("/add_word/<word>/<first_use_date>/<first_use_known_raw>")
+def add_word(word, first_use_date, first_use_known_raw):
+    first_use_known = first_use_known_raw.lower() == "true"
+    dwr = DatedWordRecord(word=word, first_use_date=first_use_date, first_use_known=first_use_known)
+    db.session.add(dwr)
     db.session.commit()
-    return "<h1>Added New User!</h1>"
+    return "<h1>Added New Word to DB!</h1>"
 
 
-@app.route("/<name>")
-def get_user(name):
-    user = User.query.filter_by(name=name).first()
-    return f"<h1>The user { user.name } is located in { user.location }</h1>"
+@app.route("/get_word/<word>")
+def get_word(word):
+    dwr = DatedWordRecord.query.filter_by(word=word).first()
+    return f"<p>word: { dwr.word }<br>first_use_date: { dwr.first_use_date }<br>first_use_known: { dwr.first_use_known }<br>lookup_date: { dwr.lookup_date }</p>"
