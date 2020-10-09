@@ -32,4 +32,11 @@ def add_word(word, first_use_date, first_use_known_raw):
 @app.route("/get_word/<word>")
 def get_word(word):
     dwr = DatedWordRecord.query.filter_by(word=word).first()
-    return f"<p>word: { dwr.word }<br>first_use_date: { dwr.first_use_date }<br>first_use_known: { dwr.first_use_known }<br>lookup_date: { dwr.lookup_date }</p>"
+    queries_today = len(DatedWordRecord.query.filter_by(lookup_date=date.today()).all())
+
+    if dwr:
+        return f"<p>word: { dwr.word }<br>first_use_date: { dwr.first_use_date }<br>first_use_known: { dwr.first_use_known }<br>lookup_date: { dwr.lookup_date }"\
+            f"<br>queries_today: { queries_today }</p>"
+    else:
+        return f"<p>{ word } isn't in the database</p>"\
+            f"<br>queries_today: { queries_today }</p>"
