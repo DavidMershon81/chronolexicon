@@ -3,7 +3,7 @@ from flask import Flask, flash, jsonify, redirect, render_template, request, ses
 from flask_session import Session
 from tempfile import mkdtemp
 from login_required import login_required
-from word_age_info import find_word_first_use
+from word_age_info import search_api_for_word_first_use
 from word_separator import separate_words_and_punctuation, DatedWordPunctuationPair
 
 # Configure application
@@ -45,7 +45,7 @@ def analyze_text_first_use():
 
     if analysis_text:
         words_and_punctuation = separate_words_and_punctuation(analysis_text)
-        dated_words = [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_word_first_use(wp[0])) for wp in words_and_punctuation]
+        dated_words = [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=search_api_for_word_first_use(wp[0])) for wp in words_and_punctuation]
         analyzed_text_html = render_template("analyzed_text.html", dated_words=dated_words)
         return jsonify({"analyzed_text_html" : analyzed_text_html })
 

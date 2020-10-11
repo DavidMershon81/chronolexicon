@@ -8,7 +8,7 @@ from collections import namedtuple
 DatedWord = namedtuple("DatedWord", "word_lower first_use was_parsed")
 
 
-def find_word_first_use(word):
+def search_api_for_word_first_use(word):
     """Find the first use of a word from the lexicon."""
     word_lower = word.lower()
     
