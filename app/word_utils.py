@@ -1,7 +1,6 @@
 import os
 import requests
 import re
-#from flask import Flask, request
 from collections import namedtuple
 from app import word_db
 

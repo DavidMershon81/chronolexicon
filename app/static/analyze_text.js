@@ -7,12 +7,14 @@ $(document).ready(function() {
 
     $("form").on("submit", send_text_to_be_analyzed);
 
-    $("#cutoff_date_range").on("change", function() {
-        cutoff_date = $("#cutoff_date_range").val();
-        $("#cutoff_date_range_label").html("Cutoff Date: " + cutoff_date);
-        color_all_dated_words();
-    });
+    $("#cutoff_date_range").on("change", on_cutoff_date_range_change);
 });
+
+function on_cutoff_date_range_change() {
+    cutoff_date = $("#cutoff_date_range").val();
+    $("#cutoff_date_text").html(cutoff_date);
+    color_all_dated_words();
+}
 
 function send_text_to_be_analyzed(event) {
     $("#analyzed_text_container").html("");
@@ -39,7 +41,7 @@ function on_recieve_text_analysis(data)
     else {
         $("#error_alert").hide();
         $("#analyzed_text_container").html(data.analyzed_text_html);
-        color_all_dated_words();
+        on_cutoff_date_range_change();
     }   
 }
 
