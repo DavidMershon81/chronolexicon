@@ -1,7 +1,7 @@
 import os
 import requests
-from flask import Flask, request
-from regex_helper import regex_find_one_match
+#from flask import Flask, request
+from app.regex_helper import regex_find_one_match
 from collections import namedtuple
 
 

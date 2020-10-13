@@ -1,4 +1,4 @@
-from regex_helper import regex_find_all_matches
+from app.regex_helper import regex_find_all_matches
 from collections import namedtuple
 
 DatedWordPunctuationPair = namedtuple("WordPunctuationPair", "word punctuation first_use_info")
