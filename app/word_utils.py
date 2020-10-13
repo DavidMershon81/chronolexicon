@@ -1,11 +1,11 @@
 import os
 import requests
+import re
 #from flask import Flask, request
-from app.regex_helper import regex_find_one_match
 from collections import namedtuple
 
-
 DatedWord = namedtuple("DatedWord", "word_lower first_use was_parsed")
+DatedWordPunctuationPair = namedtuple("WordPunctuationPair", "word punctuation first_use_info")
 
 
 def search_api_for_word_first_use(word):
@@ -34,16 +34,6 @@ def process_dictionary_response(response, word_lower):
         return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
     else:
         return parse_formatted_date(response_json[0]["date"], word_lower)
-        
-    #first_known_use = None
-
-    #for entry in response_json:
-        #homophone_first_known_use = parse_formatted_date(entry["date"], word_lower)
-        
-        #if not first_known_use or homophone_first_known_use.first_use < first_known_use.first_use:
-            #first_known_use = homophone_first_known_use
-    
-    #return first_known_use
 
 
 def parse_formatted_date(formatted_date, word_lower):
@@ -67,3 +57,22 @@ def parse_formatted_date(formatted_date, word_lower):
         return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
 
 
+def separate_words_and_punctuation(text):
+    #This should extract a list of tuples with a length of 2
+    #each tuple will have the word in index 0 and the non-word content(spaces, punctuation) at index 1
+    #if a string of digits (e.g. 25, 327) is present, this will be recognized as a word,
+    #but I can filter this out later, instead of doing a dictionary lookup.
+    return regex_find_all_matches(text, r"([\w|'*]+)(\W*)")
+
+
+def regex_find_one_match(text, search_pattern):
+    matches = regex_find_all_matches(text, search_pattern)
+    if len(matches) > 0:
+        return matches[0]
+    else:
+        return None
+
+
+def regex_find_all_matches(text, pattern):
+    pattern = re.compile(pattern)
+    return pattern.findall(text)

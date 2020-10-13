@@ -1,7 +1,7 @@
 from app import app
-from app.word_age_info import DatedWord
-from app.word_age_info import search_api_for_word_first_use
-from app.regex_helper import regex_find_one_match
+from app.word_utils import DatedWord
+from app.word_utils import search_api_for_word_first_use
+from app.word_utils import regex_find_one_match
 from datetime import date
 from flask_sqlalchemy import SQLAlchemy
 

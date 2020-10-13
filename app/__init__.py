@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from tempfile import mkdtemp
-from flask_session import Session
+#from flask_session import Session
 
 
 # Configure application
@@ -20,12 +20,12 @@ def after_request(response):
 
 
 # Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_FILE_DIR"] = mkdtemp()
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
+#app.config["SESSION_FILE_DIR"] = mkdtemp()
+#app.config["SESSION_PERMANENT"] = False
+#app.config["SESSION_TYPE"] = "filesystem"
 
 #start session
-Session(app)
+#Session(app)
 
 # Make sure API key is set
 if not os.environ.get("API_KEY"):
