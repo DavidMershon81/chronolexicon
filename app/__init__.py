@@ -1,7 +1,5 @@
-import os
+#import os
 from flask import Flask
-from tempfile import mkdtemp
-#from flask_session import Session
 
 
 # Configure application

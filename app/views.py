@@ -1,8 +1,6 @@
 from app import app
 from flask import request, jsonify, render_template
-from app.word_utils import find_first_word_use
-from app.word_utils import separate_words_and_punctuation
-from app.word_utils import DatedWordPunctuationPair
+from app.word_utils import get_dated_words_from_text
 
 # Routing functions
 @app.route("/")
@@ -17,8 +15,7 @@ def analyze_text_first_use():
     analysis_text = request.form["analysis_text"]
 
     if analysis_text:
-        words_and_punctuation = separate_words_and_punctuation(analysis_text)
-        dated_words = [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_first_word_use(wp[0])) for wp in words_and_punctuation]
+        dated_words = get_dated_words_from_text(analysis_text)
         analyzed_text_html = render_template("analyzed_text.html", dated_words=dated_words)
         return jsonify({"analyzed_text_html" : analyzed_text_html })
 

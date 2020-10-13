@@ -4,11 +4,20 @@ import re
 from collections import namedtuple
 from app import word_db
 
+
+#Dated word and punctuation tuples
+
 DatedWord = namedtuple("DatedWord", "word_lower first_use was_parsed")
 DatedWordPunctuationPair = namedtuple("WordPunctuationPair", "word punctuation first_use_info")
 
 
 #Word parsing and database management functions
+
+def get_dated_words_from_text(text):
+    words_and_punctuation = separate_words_and_punctuation(text)
+    return [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_first_word_use(wp[0])) for wp in words_and_punctuation]
+
+
 def find_first_word_use(word_raw):
     word = word_raw.lower()
 
