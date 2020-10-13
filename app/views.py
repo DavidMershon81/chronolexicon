@@ -1,6 +1,6 @@
 from app import app
-from app.word_db import find_first_word_use
 from flask import request, jsonify, render_template
+from app.word_utils import find_first_word_use
 from app.word_utils import separate_words_and_punctuation
 from app.word_utils import DatedWordPunctuationPair
 

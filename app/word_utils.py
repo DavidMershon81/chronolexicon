@@ -3,9 +3,35 @@ import requests
 import re
 #from flask import Flask, request
 from collections import namedtuple
+from app import word_db
 
 DatedWord = namedtuple("DatedWord", "word_lower first_use was_parsed")
 DatedWordPunctuationPair = namedtuple("WordPunctuationPair", "word punctuation first_use_info")
+
+
+#Word parsing and database management functions
+def find_first_word_use(word_raw):
+    word = word_raw.lower()
+
+    number_match = regex_find_one_match(word, r"\d+")
+
+    if number_match:
+        return DatedWord(word_lower=word, first_use=None, was_parsed=False)
+    else:
+        db_match = word_db.find_word_in_db(word)
+
+        if db_match:
+            return DatedWord(word_lower=db_match.word, first_use=db_match.first_use_date, was_parsed=db_match.first_use_known)
+        else:
+            queries_today = word_db.find_api_queries_today()
+            max_queries_per_day = 1000
+
+            if queries_today >= max_queries_per_day:
+                return DatedWord(word_lower=word, first_use=None, was_parsed=False)
+
+            search_result = search_api_for_word_first_use(word)
+            word_db.add_word_to_db(search_result.word_lower, search_result.first_use, search_result.was_parsed)
+            return search_result
 
 
 def search_api_for_word_first_use(word):

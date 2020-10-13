@@ -32,5 +32,6 @@ if not os.environ.get("API_KEY"):
     raise RuntimeError("API_KEY not set")
 
 from app import word_db
+from app import word_utils
 from app import views
 
