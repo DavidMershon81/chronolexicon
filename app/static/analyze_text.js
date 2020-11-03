@@ -4,9 +4,9 @@ var cutoff_date = 1000;
 $(document).ready(function() {
     loading_text_fader = PulseFader('.loading_text', 500);
     toggle_loading_animation(false);
+    toggle_analyzed_text_area(false);
 
     $("form").on("submit", send_text_to_be_analyzed);
-
     $("#cutoff_date_range").on("change", on_cutoff_date_range_change);
 });
 
@@ -19,6 +19,7 @@ function on_cutoff_date_range_change() {
 function send_text_to_be_analyzed(event) {
     $("#analyzed_text_container").html("");
     toggle_loading_animation(true);
+    toggle_analyzed_text_area(false);
 
     $.ajax({
         data : {
@@ -34,6 +35,8 @@ function send_text_to_be_analyzed(event) {
 function on_recieve_text_analysis(data)
 {
     toggle_loading_animation(false);
+    toggle_analyzed_text_area(true);
+    
     if(data.error) {
         $("#error_alert").text(data.error).show();
         $("#analyzed_text_container").html("");
@@ -41,6 +44,7 @@ function on_recieve_text_analysis(data)
     else {
         $("#error_alert").hide();
         $("#analyzed_text_container").html(data.analyzed_text_html);
+        $("#analyzed_text_group").show();
         on_cutoff_date_range_change();
     }   
 }
@@ -58,13 +62,24 @@ function toggle_loading_animation(show) {
     }
 }
 
+function toggle_analyzed_text_area(show) {
+    if(show)
+    {
+        $("#analyzed_text_group").show();
+    }
+    else
+    {
+        $("#analyzed_text_group").hide();
+    }
+}
+
 function color_all_dated_words() {
     $(".dated_word").each(color_dated_word_by_first_use);
 }
 
 function color_dated_word_by_first_use() {
     var first_use = $(this).attr("first_use");
-    var text_color = first_use > cutoff_date ? "violet" : "darkgray";
+    var text_color = first_use == "None" ? "darkorange" : (first_use > cutoff_date ? "gray" : "violet");
     $(this).css("color", text_color);
 }
 

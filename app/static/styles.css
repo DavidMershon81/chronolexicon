@@ -17,10 +17,58 @@ footer {
     padding: 30px;
 }
 
+main {
+    min-height: 80vh;
+}
+
 .alert {
     display: none;
 }
 
 .violet {
     color: violet;
+}
+
+.darkorange {
+    color:darkorange;
+}
+
+.custom-range {
+    margin-top: 30px;
+}
+
+.analyzed_text_box {
+    background-color: white;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.analyzed_text_box h2 {
+    color: gray;
+    text-align: center;
+}
+
+.analyzed_text_box label {
+    margin-bottom: 0px;
+    margin-top: 50px;
+    color: gray;
+}
+
+.custom-range {
+    margin-top: 10px;
+}
+
+.text_viz_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.controls-area {
+    width: 20%;
+    padding-right: 30px;
+}
+
+.viz-text-area {
+    width: 80%;
 }

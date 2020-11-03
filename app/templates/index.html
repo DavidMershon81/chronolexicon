@@ -22,14 +22,23 @@ Chronolexicon
         <div id="success_alert" class="alert alert-success" role="alert"></div>
         <div id="error_alert" class="alert alert-danger" role="alert"></div>
     </div>
-    <div class="container">
-        <form class="form" id="cutoff_date_form">
-            <label for="cutoff_date_range" >Words in <span class="violet">violet</span> did not exist before <span class="violet" id="cutoff_date_text"></span></label>
-            <input type="range" class="custom-range" min="1000" max="2020" id="cutoff_date_range">
-        </form>
+    <div class="container analyzed_text_box" id="analyzed_text_group">
+        
+        <div class="container text_viz_row">
+            <div class="controls-area">
+                <form class="form" id="cutoff_date_form">
+                    <label for="cutoff_date_range">Adjust cutoff date...</label>
+                    <input type="range" class="custom-range" min="1000" max="2020" id="cutoff_date_range">
+                </form>
+                <p><span class="violet">In use by </span><span id="cutoff_date_text"class="violet"></span><span class="violet"> A.D.</span>
+                <br><span class="darkorange">Can't find data on first use date</span></p>
+            </div>
+            <div class="viz-text-area">
+                <h2>Analyzed Text</h2>
+                <div id="analyzed_text_container" class="container"></div>
+            </div>
+        </div>
     </div>
-    
-    <div id="analyzed_text_container" class="container"></div>
     <div id="loading_text_group">
         <h2 class="loading_text text-center">Loading</h2>
     </div>
