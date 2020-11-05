@@ -53,6 +53,10 @@ function on_recieve_text_analysis(data)
         $("#analyzed_text_container").html(data.analyzed_text_html);
         on_cutoff_date_range_change();
         init_tooltips();
+
+        if($("#api_alert").length){
+            $("#api_alert").text("Warning: Exceeded max M-W dictionary queries for today. Some words in your search may lack etymological data! Please try again tomorrow.").show();
+        }
     }   
 }
 

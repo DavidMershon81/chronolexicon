@@ -15,7 +15,7 @@ DatedWordPunctuationPair = namedtuple("WordPunctuationPair", "word punctuation f
 
 def get_dated_words_from_text(text):
     words_and_punctuation = separate_words_and_punctuation(text)
-    return [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_first_word_use(wp[0])) for wp in words_and_punctuation]
+    return [DatedWordPunctuationPair(word=wp[0], punctuation=wp[1], first_use_info=find_first_word_use(wp[0])) for wp in words_and_punctuation]    
 
 
 def find_first_word_use(word_raw):
@@ -31,10 +31,7 @@ def find_first_word_use(word_raw):
         if db_match:
             return DatedWord(word_lower=db_match.word, first_use=db_match.first_use_date, was_parsed=db_match.first_use_known)
         else:
-            queries_today = word_db.find_api_queries_today()
-            max_queries_per_day = 1000
-
-            if queries_today >= max_queries_per_day:
+            if word_db.exceeded_max_api_queries():
                 return DatedWord(word_lower=word, first_use=None, was_parsed=False)
 
             search_result = search_api_for_word_first_use(word)

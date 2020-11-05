@@ -9,6 +9,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite3"
 db = SQLAlchemy(app)
 
 
+
 #Model class for dated word database queries
 class DatedWordRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +25,11 @@ def find_word_in_db(word):
 
 def find_api_queries_today():
     return len(DatedWordRecord.query.filter_by(lookup_date=date.today()).all())
+
+
+def exceeded_max_api_queries():
+    max_queries_per_day = 1000
+    return find_api_queries_today() >= max_queries_per_day
 
 
 def add_word_to_db(word, first_use_date, first_use_known):

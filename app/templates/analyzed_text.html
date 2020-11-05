@@ -1,7 +1,9 @@
+{% if max_api_queries %}
+<div id="api_alert" class="alert alert-danger" role="alert"></div>
+{% endif %}
 <p>
     {% for dw in dated_words %}<span class="dated_word" first_use="{{dw.first_use_info.first_use}}" data-toggle="tooltip" data-placement="top" title="First Use: {{dw.first_use_info.first_use}}">{{dw.word}}</span>{{dw.punctuation}}{% endfor %}
 </p>
-
 <!--
 <h2>Debug Info</h2>
 
