@@ -8,7 +8,14 @@ $(document).ready(function() {
 
     $("form").on("submit", send_text_to_be_analyzed);
     $("#cutoff_date_range").on("change", on_cutoff_date_range_change);
+
+    
 });
+
+function init_tooltips()
+{
+    $('[data-toggle="tooltip"]').tooltip()
+}
 
 function on_cutoff_date_range_change() {
     cutoff_date = $("#cutoff_date_range").val();
@@ -44,8 +51,8 @@ function on_recieve_text_analysis(data)
     else {
         $("#error_alert").hide();
         $("#analyzed_text_container").html(data.analyzed_text_html);
-        $("#analyzed_text_group").show();
         on_cutoff_date_range_change();
+        init_tooltips();
     }   
 }
 
