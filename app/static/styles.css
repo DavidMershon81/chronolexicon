@@ -3,18 +3,28 @@
 }
 
 body {
-    background-color: gray;
-    color: lightgray;
+    background-color: lightgrey;
+    color: #555555;
 }
 
 header {
-    background-color: black;
+    background-color: #555555;
+    color:white;
+}
+
+.nav-link{
+    color:lightgray;
+}
+
+.nav-link:hover{
+    color:orangered;
 }
 
 footer {
-    background-color: black;
+    background-color: #555555;
     height: 100px;
     padding: 30px;
+    color: lightgrey;
 }
 
 main {
@@ -29,8 +39,8 @@ main {
     color: violet;
 }
 
-.darkorange {
-    color:darkorange;
+.orangered {
+    color:orangered;
 }
 
 .custom-range {
@@ -65,10 +75,27 @@ main {
 }
 
 .controls-area {
-    width: 20%;
+    width: 25%;
     padding-right: 30px;
 }
 
 .viz-text-area {
-    width: 80%;
+    width: 75%;
+}
+
+.about-group {
+    background-color: white;
+    padding-left: 120px;
+    padding-right: 140px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.about-group h3 {
+    color:orangered;
+}
+
+.mershon-portrait {
+    max-height: 240px;
+    margin: 20px;
 }

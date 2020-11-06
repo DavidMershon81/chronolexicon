@@ -90,7 +90,7 @@ function color_all_dated_words() {
 
 function color_dated_word_by_first_use() {
     var first_use = $(this).attr("first_use");
-    var text_color = first_use == "None" ? "darkorange" : (first_use > cutoff_date ? "gray" : "violet");
+    var text_color = first_use == "None" ? "violet" : (first_use > cutoff_date ? "#555555" : "orangered");
     $(this).css("color", text_color);
 }
 

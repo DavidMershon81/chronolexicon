@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chronolexicon
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/analyze_text.js"></script>
+{% endblock %}
+
+
+{% block main %}
+    <div class="container about-group">
+            <h3 class="h3 text-center">What is Chronolexicon?</h3>
+            <p>Chronolexicon is an experiment in text visualization. Words are colored based in their first known use date. Drag the slider to any date from 1050 A.D. to present to color all words that were in use by a particular date.</p>
+            <p>Chronolexicon is powered by the <a href="https://www.merriam-webster.com/">Merriam-Webster Dictionary</a>.</p>
+            <br>
+            <h3 class="h3 text-center">Who made this, and why?</h3>
+            <div class="text-center">
+                <img src="/static/images/mershon_profile.jpg" class="img mershon-portrait" alt="David Mershon Portrait">
+            </div>
+            <p>Chronolexicon was created by me, David Mershon. I built this page for fun, and to experiment with some simple natural language processing techniques.</p>
+            <p>You can contact me at <a href="mailto:dmershon@universalhappymaker.com">dmershon@universalhappymaker.com</a></p>
+        </section>       
+    </div>
+{% endblock %}

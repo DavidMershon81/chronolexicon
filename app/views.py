@@ -4,6 +4,7 @@ from app.word_utils import get_dated_words_from_text
 from app.word_db import exceeded_max_api_queries
 
 # Routing functions
+
 @app.route("/")
 def index():
     """route index"""
@@ -25,3 +26,7 @@ def analyze_text_first_use():
     return jsonify({"error" : "Missing data!"})
 
 
+@app.route("/about")
+def about():
+    """route about page"""
+    return render_template("about.html")
