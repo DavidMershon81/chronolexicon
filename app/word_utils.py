@@ -35,8 +35,13 @@ def find_first_word_use(word_raw):
                 return DatedWord(word_lower=word, first_use=None, was_parsed=False)
 
             search_result = search_api_for_word_first_use(word)
-            word_db.add_word_to_db(search_result.word_lower, search_result.first_use, search_result.was_parsed)
-            return search_result
+
+            if search_result:
+                word_db.add_word_to_db(search_result.word_lower, search_result.first_use, search_result.was_parsed)
+                return search_result
+            else:
+                return DatedWord(word_lower=word, first_use=None, was_parsed=False)
+
 
 
 def search_api_for_word_first_use(word):
@@ -49,22 +54,24 @@ def search_api_for_word_first_use(word):
         response = requests.get(f"https://www.dictionaryapi.com/api/v3/references/collegiate/json/{word_lower}?key={api_key}")
         response.raise_for_status()
     except requests.RequestException:
-        return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
+        return None
 
     # Parse response
     try:
         return process_dictionary_response(response, word_lower)
     except (KeyError, TypeError, ValueError):
-        return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
+        return None
 
 
 def process_dictionary_response(response, word_lower):
     response_json = response.json()
 
-    if len(response_json) < 1:
-        return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
-    else:
-        return parse_formatted_date(response_json[0]["date"], word_lower)
+    for i in range(len(response_json)):
+        homograph = response_json[i]
+        if "date" in homograph:
+            return parse_formatted_date(homograph["date"], word_lower)
+
+    return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
 
 
 def parse_formatted_date(formatted_date, word_lower):
