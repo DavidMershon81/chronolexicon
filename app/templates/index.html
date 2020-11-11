@@ -27,7 +27,7 @@ Chronolexicon
             <div class="controls-area">
                 <form class="form" id="cutoff_date_form">
                     <label for="cutoff_date_range">Adjust cutoff date...</label>
-                    <input type="range" class="custom-range" min="1000" max="2020" id="cutoff_date_range">
+                    <input type="range" class="custom-range" min="1000" max="{{present_date}}" id="cutoff_date_range">
                 </form>
                 <p><span class="orangered">In use by </span><span id="cutoff_date_text"class="orangered"></span><span class="orangered"> A.D.</span>
                 <br><span class="violet">Can't find first use data.</span></p>
@@ -39,6 +39,6 @@ Chronolexicon
         </div>
     </div>
     <div id="loading_text_group">
-        <h2 class="loading_text text-center">Loading</h2>
+        <h2 class="loading_text text-center">Analyzing</h2>
     </div>
 {% endblock %}

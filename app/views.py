@@ -2,13 +2,15 @@ from app import app
 from flask import request, jsonify, render_template
 from app.word_utils import get_dated_words_from_text
 from app.word_db import exceeded_max_api_queries
+from datetime import date
 
 # Routing functions
 
 @app.route("/")
 def index():
     """route index"""
-    return render_template("index.html")
+    present_date = date.today().strftime("%Y")
+    return render_template("index.html", present_date=present_date)
 
 
 @app.route("/analyze_text_first_use", methods=["POST"])
