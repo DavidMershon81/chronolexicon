@@ -66,33 +66,35 @@ def search_api_for_word_first_use(word):
 def process_dictionary_response(response, word_lower):
     response_json = response.json()
 
+    first_use_dates = []
+
     for i in range(len(response_json)):
         homograph = response_json[i]
         if "date" in homograph:
-            return parse_formatted_date(homograph["date"], word_lower)
+            first_use_dates.append(parse_formatted_date(homograph["date"], word_lower))
+
+    if len(first_use_dates) > 0:
+        first_use_dates.sort()
+        return DatedWord(word_lower=word_lower, first_use=first_use_dates[0], was_parsed=True)    
 
     return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
 
 
 def parse_formatted_date(formatted_date, word_lower):
-    #print(f"parsing formatted_date:{formatted_date}...")
-
     four_digit_date = regex_find_one_match(formatted_date, r"\d{4}")
     century_date_raw = regex_find_one_match(formatted_date, r"(\d{1,2})(th|st|rd|nd)( century)")
 
     if four_digit_date: 
-        #print(f"found four_digit_date: {four_digit_date}")
-        return DatedWord(word_lower=word_lower, first_use=int(four_digit_date), was_parsed=True)
+        return int(four_digit_date)
     elif century_date_raw:
         is_before = regex_find_one_match(formatted_date, r"before")
         first_use_century = int(century_date_raw[0]) - 1
         if is_before:
             first_use_century -= 1
         century_first_use_date = first_use_century * 100 + 50
-        return DatedWord(word_lower=word_lower, first_use=century_first_use_date, was_parsed=True)
-        #DatedWord(first_use=None, was_parsed=False)
+        return century_first_use_date
     else:
-        return DatedWord(word_lower=word_lower, first_use=None, was_parsed=False)
+        return None
 
 
 def separate_words_and_punctuation(text):
