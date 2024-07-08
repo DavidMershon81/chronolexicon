@@ -1,0 +1,3 @@
+This was a final project for a Harvard CS50x MOOC that I took several years ago. At the time I had been a mostly self trained software engineer and I wanted to know if there were any gaps in my CS knowledge that could be remedied by taking a rigorous undergrad intro to computer science course. It turned out that I learned a lot and it was a great class, so highly recommended! The professor, David Malan is a legend.
+
+Anyway, the project itself is a web app that uses an API from a dictionary website to mark words in a text based by how long they've been in existence as part of the English language. I picked this as a project because I wanted to get more into web development and it seemed like a conceptually interesting thing to do. 
